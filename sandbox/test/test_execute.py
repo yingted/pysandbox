@@ -84,7 +84,7 @@ def test_execfile():
         config = createSandboxConfig('stdout')
         try:
             Sandbox(config).call(execfile_test, filename)
-        except NameError, err:
+        except NameError as err:
             assert str(err) == "global name 'execfile' is not defined"
         else:
             assert False

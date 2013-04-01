@@ -76,7 +76,7 @@ def create_code_objects(args):
         code_type = type(code_obj)
         try:
             return code_type(*args)
-        except SandboxError, err:
+        except SandboxError as err:
             assert str(err) == 'code() blocked by the sandbox'
     raise TestException("Unable to get code type")
 
@@ -99,7 +99,7 @@ def test_bytecode():
     config.allowModule('sys', '_getframe')
     try:
         Sandbox(config).call(exec_bytecode, code_args)
-    except TestException, err:
+    except TestException as err:
         assert str(err) == "Unable to get code type"
     else:
         assert False
@@ -123,9 +123,9 @@ def test_func_code():
     sandbox = createSandbox()
     try:
         sandbox.call(replace_func_code)
-    except AttributeError, err:
+    except AttributeError as err:
         assert str(err) == "'function' object has no attribute '__code__'"
-    except RuntimeError, err:
+    except RuntimeError as err:
         assert str(err) == "function attributes not accessible in restricted mode"
     else:
         assert False

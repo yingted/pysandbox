@@ -29,7 +29,7 @@ def test_closure():
     unsafe_code = code + unindent('''
         try:
             read_closure_secret()
-        except AttributeError, err:
+        except AttributeError as err:
             assert str(err) == "'function' object has no attribute '__closure__'"
         else:
             assert False, "func_closure is present"
@@ -61,7 +61,7 @@ def test_func_globals():
     unsafe_code = code + unindent('''
         try:
             get_secret_from_func_globals()
-        except AttributeError, err:
+        except AttributeError as err:
             assert str(err) == "'function' object has no attribute '__globals__'"
         else:
             assert False
@@ -91,7 +91,7 @@ def test_func_locals():
     def frame_locals_denied():
         try:
             get_import_from_func_locals(__import__, sys.exc_info)
-        except AttributeError, err:
+        except AttributeError as err:
             assert str(err) == "'frame' object has no attribute 'f_locals'"
         else:
             assert False
@@ -113,7 +113,7 @@ def test_func_defaults():
     unsafe_code = unindent('''
         try:
             open.__defaults__
-        except AttributeError, err:
+        except AttributeError as err:
             assert str(err) in (
                 # open is safe_open()
                 "'function' object has no attribute '__defaults__'",
@@ -128,7 +128,7 @@ def test_func_defaults():
         unsafe_code += unindent('''
             try:
                 open.func_defaults
-            except AttributeError, err:
+            except AttributeError as err:
                 assert str(err) in (
                     # open is safe_open()
                     "'function' object has no attribute 'func_defaults'",
@@ -164,7 +164,7 @@ def test_type_bases():
     unsafe_code = code + unindent('''
         try:
             test()
-        except AttributeError, err:
+        except AttributeError as err:
             assert str(err) == "__bases__ error"
         else:
             assert False

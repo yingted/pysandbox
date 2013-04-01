@@ -36,7 +36,7 @@ def getTests(main_dict, keyword=None):
         full_module_name = "sandbox.test.%s" % module_name
         try:
             parent_module = __import__(full_module_name)
-        except SkipTest, skip:
+        except SkipTest as skip:
             print("Skip %s: %s" % (module_name, skip))
             continue
         module = getattr(parent_module.test, module_name)

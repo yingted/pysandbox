@@ -59,7 +59,7 @@ def execute_child():
             output_data['globals'] = globals
         if 'locals' in input_data:
             output_data['locals'] = locals
-    except base_exception, err:
+    except base_exception as err:
         output_data = {'error': err}
     pickle.dump(output_data, output, PICKLE_PROTOCOL)
     output.flush()
@@ -71,7 +71,7 @@ def call_child(wpipe, sandbox, func, args, kw):
         set_process_limits(config)
         result = sandbox._call(func, args, kw)
         data = {'result': result}
-    except BaseException, err:
+    except BaseException as err:
         data = {'error': err}
     output = os.fdopen(wpipe, 'wb')
     pickle.dump(data, output, PICKLE_PROTOCOL)

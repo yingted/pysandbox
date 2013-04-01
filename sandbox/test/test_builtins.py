@@ -37,7 +37,7 @@ def test_builtins_setitem():
     unsafe_code = code + unindent('''
         try:
             builtins_superglobal()
-        except SandboxError, err:
+        except SandboxError as err:
             assert str(err) == "Read only object"
         else:
             assert False
@@ -59,9 +59,9 @@ def test_builtins_init():
         def check_dict_init():
             try:
                 dict.__init__(__builtins__, {})
-            except ImportError, err:
+            except ImportError as err:
                 assert str(err) == 'Import "_warnings" blocked by the sandbox'
-            except DeprecationWarning, err:
+            except DeprecationWarning as err:
                 assert str(err) == 'object.__init__() takes no parameters'
             else:
                 assert False
@@ -73,7 +73,7 @@ def test_builtins_init():
 
     try:
         createSandbox().execute(unsafe_code)
-    except SandboxError, err:
+    except SandboxError as err:
         assert str(err) == "Read only object", str(err)
     else:
         assert False
@@ -101,14 +101,14 @@ def test_modify_builtins_dict():
     unsafe_code = code + unindent('''
         try:
             builtins_dict_superglobal()
-        except AttributeError, err:
+        except AttributeError as err:
             assert str(err) == "type object 'dict' has no attribute '__setitem__'"
         else:
             assert False
     ''')
     try:
         createSandbox().execute(unsafe_code)
-    except SandboxError, err:
+    except SandboxError as err:
         assert str(err) == "Read only object"
 
 def test_del_builtin():
@@ -119,7 +119,7 @@ def test_del_builtin():
             try:
                 try:
                     import sys
-                except NameError, err:
+                except NameError as err:
                     assert str(err) == "type object 'dict' has no attribute '__setitem__'"
             finally:
                 __builtins__['__import__'] = import_func
@@ -128,9 +128,9 @@ def test_del_builtin():
     unsafe_code = code + unindent('''
         try:
             del_builtin_import()
-        except AttributeError, err:
+        except AttributeError as err:
             assert str(err) == "type object 'dict' has no attribute '__delitem__'"
-        except SandboxError, err:
+        except SandboxError as err:
             assert str(err) == "Read only object"
         else:
             assert False

@@ -5,7 +5,7 @@ def test_import():
     def import_blocked():
         try:
             import os
-        except ImportError, err:
+        except ImportError as err:
             assert str(err) == 'Import "os" blocked by the sandbox'
         else:
             assert False
@@ -36,14 +36,14 @@ def test_readonly_import():
 
         try:
             sys.version = '3000'
-        except SandboxError, err:
+        except SandboxError as err:
             assert str(err) == "Read only object"
         else:
             assert False
 
         try:
             object.__setattr__(sys, 'version', '3000')
-        except AttributeError, err:
+        except AttributeError as err:
             assert str(err) == "'SafeModule' object has no attribute 'version'"
         else:
             assert False

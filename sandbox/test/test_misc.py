@@ -12,7 +12,7 @@ def test_exit():
     def exit_noarg():
         try:
             exit()
-        except SandboxError, err:
+        except SandboxError as err:
             assert str(err) == "exit() function blocked by the sandbox"
         else:
             assert False
@@ -22,7 +22,7 @@ def test_exit():
     def exit_1():
         try:
             exit(1)
-        except SystemExit, err:
+        except SystemExit as err:
             assert err.args[0] == 1
         else:
             assert False
@@ -30,7 +30,7 @@ def test_exit():
         import sys
         try:
             sys.exit("bye")
-        except SystemExit, err:
+        except SystemExit as err:
             assert err.args[0] == "bye"
         else:
             assert False
@@ -40,7 +40,7 @@ def test_sytem_exit():
     def system_exit_denied():
         try:
             raise SystemExit()
-        except NameError, err:
+        except NameError as err:
             assert str(err) == "global name 'SystemExit' is not defined"
         except:
             assert False
@@ -168,7 +168,7 @@ def test_crash():
     sand = Sandbox(config)
     try:
         sand.call(crash)
-    except SandboxError, err:
+    except SandboxError as err:
         assert str(err) == 'subprocess killed by signal 11', str(err)
     else:
         assert False

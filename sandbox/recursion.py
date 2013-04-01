@@ -5,7 +5,7 @@ import sys
 class SetRecursionLimit(Protection):
     def enable(self, sandbox):
         self.old_limit = sys.getrecursionlimit()
-        sys.setrecursionlimit(sandbox.config.recusion_limit)
+        sys.setrecursionlimit(sandbox.config.recursion_limit)
 
     def disable(self, sandbox):
         sys.setrecursionlimit(self.old_limit)

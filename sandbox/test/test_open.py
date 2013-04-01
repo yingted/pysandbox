@@ -22,7 +22,7 @@ def test_open_denied():
     def access_denied():
         try:
             read_first_line(open)
-        except IOError, err:
+        except IOError as err:
             if err.errno == EACCES:
                 # safe_open() error
                 assert err.args[1].startswith('Sandbox deny access to the file ')
@@ -54,9 +54,9 @@ def test_write_file():
     def write_denied(filename):
         try:
             write_file(filename)
-        except ValueError, err:
+        except ValueError as err:
             assert str(err) == "Only read modes are allowed."
-        except IOError, err:
+        except IOError as err:
             assert str(err) == "file() constructor not accessible in restricted mode"
         else:
             assert False, "writing to a file is not blocked"
@@ -76,7 +76,7 @@ def test_filetype_from_sys_stdout():
         file_type = get_file_type_from_stdout()
         try:
             read_first_line(file_type)
-        except TypeError, err:
+        except TypeError as err:
             assert str(err) in ('object.__new__() takes no parameters', 'default __new__ takes no parameters')
         else:
             assert False
@@ -111,7 +111,7 @@ def test_filetype_from_open_file():
         file_type = get_file_type_from_open_file(filename)
         try:
             read_first_line(file_type)
-        except TypeError, err:
+        except TypeError as err:
             assert str(err) in ('object.__new__() takes no parameters', 'default __new__ takes no parameters')
         else:
             assert False
@@ -131,7 +131,7 @@ def test_method_proxy():
         file_type = get_file_type_from_stdout_method()
         try:
             read_first_line(file_type)
-        except TypeError, err:
+        except TypeError as err:
             assert str(err) in ('object.__new__() takes no parameters', 'default __new__ takes no parameters')
         else:
             assert False
@@ -155,7 +155,7 @@ def test_subclasses():
     def subclasses_denied():
         try:
             get_file_type_from_subclasses()
-        except AttributeError, err:
+        except AttributeError as err:
             assert str(err) == "type object 'object' has no attribute '__subclasses__'"
         else:
             assert False

@@ -12,7 +12,7 @@ def test_recusion():
     max_frames = config.recusion_limit + 1
     try:
         Sandbox(config).call(factorial, max_frames)
-    except RuntimeError, err:
+    except RuntimeError as err:
         assert str(err) == 'maximum recursion depth exceeded'
     else:
         assert False

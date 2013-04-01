@@ -45,7 +45,7 @@ def test_object_proxy_setattr():
     sandbox = createSandbox()
     try:
         sandbox.call(setAttr, person)
-    except SandboxError, err:
+    except SandboxError as err:
         assert str(err) == 'Read only object'
     else:
         assert False
@@ -62,7 +62,7 @@ def test_object_proxy_delattr():
     sandbox = createSandbox()
     try:
         sandbox.call(delAttr, person)
-    except SandboxError, err:
+    except SandboxError as err:
         assert str(err) == 'Read only object'
     else:
         assert False
@@ -83,9 +83,9 @@ def test_object_proxy_dict():
     sandbox = createSandbox()
     try:
         sandbox.call(setDict, person)
-    except SandboxError, err:
+    except SandboxError as err:
         assert str(err) == 'Read only object'
-    except RuntimeError, err:
+    except RuntimeError as err:
         assert str(err) == 'instance.__dict__ not accessible in restricted mode'
     else:
         assert False
@@ -98,7 +98,7 @@ def test_proxy_module():
         from sys import modules
         try:
             modules['sys']
-        except SandboxError, err:
+        except SandboxError as err:
             assert str(err) == "Unable to proxy a value of type <type 'module'>"
         else:
             assert False

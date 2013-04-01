@@ -82,7 +82,7 @@ class SandboxConfig(object):
          - cpython_restricted=False (bool): if True, use CPython restricted
            mode instead of the _sandbox module
         """
-        self.recusion_limit = 50
+        self.recursion_limit = 50
         self._use_subprocess = kw.get('use_subprocess', True)
         if self._use_subprocess:
             self._timeout = DEFAULT_TIMEOUT
