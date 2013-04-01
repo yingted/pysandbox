@@ -15,6 +15,7 @@ else:
     # 2to3 script converts str to str instead of bytes
     BYTES_TYPE = bytes
     UNICODE_TYPE = str
+    long = int
     if version_info < (3, 2):
         def callable(obj):
             return any("__call__" in cls.__dict__ for cls in type(obj).__mro__)

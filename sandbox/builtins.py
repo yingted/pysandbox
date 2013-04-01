@@ -1,5 +1,8 @@
 from __future__ import absolute_import
-import __builtin__ as BUILTINS_MODULE
+try:
+    import __builtin__ as BUILTINS_MODULE
+except ImportError:
+    import builtins as BUILTINS_MODULE
 from types import FrameType
 from sys import version_info
 import sys
@@ -26,7 +29,7 @@ class CleanupBuiltins:
 
         # Remove all symbols not in the whitelist
         whitelist = config.builtins_whitelist
-        keys = set(self.builtin_dict.dict.iterkeys())
+        keys = set(self.builtin_dict.dict.keys())
         for key in keys - whitelist:
             del self.builtin_dict[key]
 
@@ -36,7 +39,7 @@ class CleanupBuiltins:
 
         # Get module list
         self.modules_dict = []
-        for name, module in sys.modules.iteritems():
+        for name, module in sys.modules.items():
             if module is None:
                 continue
             if '__builtins__' not in module.__dict__:

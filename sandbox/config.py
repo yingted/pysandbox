@@ -237,7 +237,7 @@ class SandboxConfig(object):
     @property
     def import_whitelist(self):
         return dict((name, (tuple(value[0]), tuple(value[1])))
-            for name, value in self._import_whitelist.iteritems())
+            for name, value in self._import_whitelist.items())
 
     @property
     def open_whitelist(self):
