@@ -10,7 +10,7 @@ def keywordsProxy(keywords):
         for key, value in keywords.iteritems())
 
 def _call_exec(code, globals, locals):
-    exec code in globals, locals
+    exec(code, globals, locals)
 
 def _dictProxy(data):
     items = data.items()
@@ -64,7 +64,7 @@ class Sandbox(object):
         """
         Execute the code in the sandbox:
 
-           exec code in globals, locals
+           exec(code, globals, locals)
         """
         if globals is None:
             globals = {}
@@ -82,7 +82,7 @@ class Sandbox(object):
         """
         Execute the code in the sandbox:
 
-           exec code in globals, locals
+           exec(code, globals, locals)
 
         Run the code in a subprocess except if it is disabled in the sandbox
         configuration.

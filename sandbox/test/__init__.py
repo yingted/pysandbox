@@ -48,7 +48,7 @@ def skipIf(test, reason):
 def execute_code(code):
     code_obj = compile(code, "<test>", "exec")
     namespace = {}
-    exec code_obj in namespace, namespace
+    exec(code_obj, namespace, namespace)
 
 def unindent(code):
     return 'if 1:\n' + code + '\n'
